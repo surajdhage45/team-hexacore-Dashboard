@@ -4,14 +4,35 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Team Hexacore</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&display=swap">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/intro.css">
+  <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
-  <main class="start">
-    <img src="images/logo.jpg" alt="Team Hexacore logo">
+  <!-- Starting page (welcome screen) -->
+  <div id="intro" role="dialog" aria-label="Welcome to Team Hexacore">
+    <i class="blob blob-1"></i>
+    <i class="blob blob-2"></i>
+    <div class="hexes" id="hexes"></div>
+    <div class="intro-content">
+      <div class="logo-wrap">
+        <button class="logo-btn" id="enter" aria-label="Enter the Team Hexacore site">
+          <img src="images/logo.jpg" alt="Team Hexacore logo">
+        </button>
+      </div>
+      <div class="welcome-small">Welcome to</div>
+      <div class="welcome-title">Team Hexacore</div>
+    </div>
+  </div>
+
+  <!-- The real home page will go here later -->
+  <main class="container" style="padding-top:60px">
     <h1>Team Hexacore</h1>
-    <p>Website coming soon.</p>
+    <p>Home page coming in the next step.</p>
   </main>
+
   <script src="js/main.js"></script>
 </body>
 </html>

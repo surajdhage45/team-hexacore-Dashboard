@@ -1,0 +1,65 @@
+/* The full-screen welcome layer that sits on top of the site */
+#intro {
+  position: fixed; inset: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+  background: radial-gradient(ellipse at 50% 40%, #08234a, #000 75%);
+  transition: opacity .8s ease .15s, transform .9s ease-in;
+}
+#intro.open { opacity: 0; transform: scale(1.7); pointer-events: none; }
+#intro.gone, .seen #intro { display: none; }
+
+/* Soft glowing blobs drifting in the background */
+.blob { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; }
+.blob-1 { width: 70vmax; height: 70vmax; left: -25vmax; top: -20vmax; background: #1677ff55; animation: drift 14s ease-in-out infinite alternate; }
+.blob-2 { width: 60vmax; height: 60vmax; right: -22vmax; bottom: -22vmax; background: #26d0ff33; animation: drift 17s ease-in-out infinite alternate-reverse; }
+
+/* Floating hexagons (Part B creates them with JavaScript) */
+.hexes { position: absolute; inset: 0; pointer-events: none; }
+.hexes i {
+  position: absolute; bottom: -90px;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  background: linear-gradient(160deg, #26d0ff, #1677ff);
+  animation: float-up linear infinite;
+}
+
+/* Logo, glow and text. No z-index on .intro-content on purpose:
+   it lets the logo's black background blend into the glow. */
+.intro-content { position: relative; text-align: center; padding: 20px; transition: transform .9s ease-in; }
+#intro.open .intro-content { transform: scale(2.3); }
+
+.logo-wrap { position: relative; width: min(280px, 68vw); margin: 0 auto 24px; }
+.logo-wrap::before, .logo-wrap::after { content: ""; position: absolute; border-radius: 50%; }
+.logo-wrap::before { inset: -25%; background: radial-gradient(circle, #1677ffcc, transparent 65%); animation: pulse 2.4s ease-in-out infinite; }
+.logo-wrap::after { inset: -5%; background: radial-gradient(circle, #26d0ff88, transparent 68%); animation: sonar 2.4s ease-out infinite; }
+
+.logo-btn {
+  position: relative; z-index: 1; display: block; width: 100%;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  mix-blend-mode: screen;
+  animation: rise .9s ease both, bob 4s 1s ease-in-out infinite;
+}
+.logo-btn img { display: block; width: 100%; height: auto; clip-path: inset(2.5%); transition: transform .25s, filter .25s; }
+.logo-btn:hover img, .logo-btn:focus-visible img { transform: scale(1.08); filter: brightness(1.25); }
+.logo-btn:active img { transform: scale(.95); }
+
+.welcome-small { font-size: 14px; letter-spacing: .45em; text-transform: uppercase; color: var(--mute); animation: rise .9s .3s ease both; }
+.welcome-title {
+  font-size: clamp(32px, 10vw, 58px); font-weight: 700; line-height: 1.15; margin-top: 4px;
+  background: linear-gradient(100deg, #fff 30%, #26d0ff 50%, #fff 70%) 0 0 / 250% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: rise .9s .5s ease both, shine 3.5s 1.4s ease-in-out infinite;
+}
+
+/* The movements, each one named so we can reuse them */
+@keyframes rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes pulse { 0%, 100% { opacity: .55; transform: scale(.94); } 50% { opacity: 1; transform: scale(1.08); } }
+@keyframes sonar { 0% { opacity: .8; transform: scale(.8); } 100% { opacity: 0; transform: scale(1.9); } }
+@keyframes shine { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+@keyframes drift { from { transform: translate(0, 0) scale(1); } to { transform: translate(6vmax, 4vmax) scale(1.15); } }
+@keyframes float-up { from { transform: translateY(0) rotate(0); } to { transform: translateY(-115vh) rotate(90deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  #intro * { animation: none !important; }
+  #intro, .intro-content { transition-duration: .2s !important; }
+}

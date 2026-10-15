@@ -1,0 +1,12 @@
+.js [data-anim] { opacity: 0; }
+.js [data-anim].in { animation: .7s ease-out both; }
+.js [data-anim="fade-up"].in { animation-name: fade-up; }
+.js [data-anim="zoom-in"].in { animation-name: zoom-in; }
+
+@keyframes fade-up { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes zoom-in { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-anim] { opacity: 1; }
+  .js [data-anim].in { animation: none; }
+}
